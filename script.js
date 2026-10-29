@@ -79,12 +79,18 @@ const termLines = [
 if (reduceMotion) {
   term.innerHTML = termLines.map(l => l[0]).join("\n");
 } else {
-  let i = 0;
-  (function nextLine() {
-    if (i >= termLines.length) return;
-    term.innerHTML += (i ? "\n" : "") + termLines[i][0];
-    setTimeout(nextLine, termLines[i++][1] + 120);
-  })();
+  // Start typing only once the terminal scrolls into view
+  const termObserver = new IntersectionObserver(entries => {
+    if (!entries[0].isIntersecting) return;
+    termObserver.disconnect();
+    let i = 0;
+    (function nextLine() {
+      if (i >= termLines.length) return;
+      term.innerHTML += (i ? "\n" : "") + termLines[i][0];
+      setTimeout(nextLine, termLines[i++][1] + 120);
+    })();
+  }, { threshold: 0.4 });
+  termObserver.observe(term);
 }
 
 // ===== Counters =====

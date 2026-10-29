@@ -165,18 +165,35 @@ a:focus-visible, button:focus-visible, textarea:focus-visible { outline: 2px sol
 .socials.small a { width: 38px; height: 38px; }
 .socials.small svg { width: 17px; height: 17px; }
 
-.hero-visual { position: relative; animation: fadeUp 1s 0.3s both; }
+.hero-visual { position: relative; animation: fadeUp 1s 0.3s both; max-width: 440px; width: 100%; justify-self: center; }
+.photo-wrap { position: relative; aspect-ratio: 1; padding: 18px; }
+.photo-wrap::before {
+  content: ""; position: absolute; inset: 18px; border-radius: 50%;
+  background: var(--yellow); transform: translate(14px, 14px);
+}
+.photo-ring {
+  position: absolute; inset: 0; border-radius: 50%;
+  border: 2px dashed var(--yellow); opacity: 0.6; animation: spin 40s linear infinite;
+}
+@keyframes spin { to { transform: rotate(360deg); } }
+.photo-wrap img {
+  position: relative; display: block; width: 100%; height: 100%; object-fit: cover;
+  border-radius: 50%; border: 6px solid var(--bg); background: #fff;
+  transition: transform 0.5s cubic-bezier(.2, .8, .2, 1);
+}
+.photo-wrap:hover img { transform: scale(1.03) rotate(-1.5deg); }
+
+.summary-side { display: grid; gap: 22px; }
 .terminal {
   background: #0d0d0d; border: 1px solid #262626; border-radius: var(--radius);
-  box-shadow: 0 30px 60px rgba(0, 0, 0, 0.35), 0 0 0 6px var(--accent-soft);
-  overflow: hidden; transform: rotate(1.5deg); transition: transform 0.5s;
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.3), 0 0 0 5px var(--accent-soft);
+  overflow: hidden;
 }
-.terminal:hover { transform: rotate(0); }
 .term-bar { display: flex; align-items: center; gap: 7px; padding: 12px 16px; background: #171717; border-bottom: 1px solid #262626; }
 .term-bar i { width: 11px; height: 11px; border-radius: 50%; background: #3f3f46; }
 .term-bar i:first-child { background: var(--yellow); }
 .term-bar span { margin-left: 10px; font-size: 0.8rem; color: #737373; font-family: "JetBrains Mono", monospace; }
-.term-body { padding: 22px; min-height: 290px; font-size: 0.88rem; line-height: 1.85; color: #d4d4d4; white-space: pre-wrap; }
+.term-body { padding: 20px 22px; min-height: 270px; font-size: 0.88rem; line-height: 1.85; color: #d4d4d4; white-space: pre-wrap; }
 .term-body .p { color: var(--yellow); }
 .term-body .ok { color: #4ade80; }
 .term-body .dim { color: #737373; }
@@ -186,8 +203,9 @@ a:focus-visible, button:focus-visible, textarea:focus-visible { outline: 2px sol
   display: flex; align-items: center; gap: 8px; animation: float 6s ease-in-out infinite;
 }
 .float-badge b { font-size: 1.2rem; font-family: "Space Grotesk", sans-serif; }
-.fb-1 { left: -26px; bottom: -22px; }
-.fb-2 { right: -14px; top: -18px; background: var(--card); color: var(--text); border: 1px solid var(--border); animation-delay: -3s; }
+.fb-1 { left: -10px; bottom: 40px; }
+.fb-2 { right: 0; top: 30px; background: var(--card); color: var(--text); border: 1px solid var(--border); animation-delay: -3s; }
+.fb-3 { right: -20px; bottom: 0; background: var(--ink); color: var(--yellow); border: 1px solid #262626; animation-delay: -1.5s; }
 @keyframes float { 50% { transform: translateY(-12px); } }
 @keyframes fadeUp { from { opacity: 0; transform: translateY(30px); } }
 
@@ -399,7 +417,7 @@ a.contact-card:hover { border-color: var(--yellow); transform: translateY(-4px);
   .nav-links a { padding: 12px 16px; }
   .hero { padding-top: 60px; }
   .hero-inner, .summary-grid, .two-col { grid-template-columns: 1fr; }
-  .hero-visual { margin: 20px 10px 0; }
+  .hero-visual { margin: 10px auto 0; max-width: 340px; order: -1; }
   .stats { grid-template-columns: 1fr 1fr; margin-top: 60px; }
   .stats li:nth-child(2) { border-right: 0; }
   .stats li:nth-child(-n+2) { border-bottom: 1px solid var(--border); }
@@ -414,8 +432,9 @@ a.contact-card:hover { border-color: var(--yellow); transform: translateY(-4px);
   .timeline { padding-left: 30px; }
   .timeline-item::before { left: -30px; width: 20px; height: 20px; }
   .timeline::before { left: 9px; }
-  .fb-1 { left: -6px; }
-  .fb-2 { right: -4px; }
+  .fb-1 { left: 0; }
+  .fb-3 { right: 0; }
+  .float-badge { font-size: 0.8rem; padding: 8px 12px; }
   .logo-text { display: none; }
   .footer-inner { flex-direction: column; text-align: center; }
 }
