@@ -1,9 +1,5 @@
-// Theme: saved choice, otherwise follow the system setting
+// Theme is set by the inline script in <head>; this handles the toggle
 const root = document.documentElement;
-const saved = (() => { try { return localStorage.getItem("theme"); } catch { return null; } })();
-const prefersDark = window.matchMedia("(prefers-color-scheme: dark)").matches;
-root.dataset.theme = saved || (prefersDark ? "dark" : "light");
-
 document.querySelector(".theme-toggle").addEventListener("click", () => {
   root.dataset.theme = root.dataset.theme === "dark" ? "light" : "dark";
   try { localStorage.setItem("theme", root.dataset.theme); } catch {}
@@ -51,5 +47,20 @@ document.querySelectorAll(".section .card, .section-title").forEach(el => {
   el.classList.add("reveal");
   observer.observe(el);
 });
+
+// Highlight the nav link for the section in view
+const navLinks = [...document.querySelectorAll(".nav-links a")];
+const sectionObserver = new IntersectionObserver(entries => {
+  entries.forEach(e => {
+    if (!e.isIntersecting) return;
+    navLinks.forEach(a => a.classList.toggle("active", a.getAttribute("href") === "#" + e.target.id));
+  });
+}, { rootMargin: "-45% 0px -50% 0px" });
+document.querySelectorAll("main section[id]").forEach(s => sectionObserver.observe(s));
+
+// Back-to-top button
+const toTop = document.querySelector(".to-top");
+window.addEventListener("scroll", () => toTop.classList.toggle("show", window.scrollY > 600), { passive: true });
+toTop.addEventListener("click", () => window.scrollTo({ top: 0, behavior: "smooth" }));
 
 document.getElementById("year").textContent = new Date().getFullYear();

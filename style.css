@@ -114,7 +114,7 @@ a { color: var(--accent); text-decoration: none; }
 .timeline::before { content: ""; position: absolute; left: 6px; top: 6px; bottom: 6px; width: 2px; background: var(--border); }
 .timeline-item { position: relative; margin-bottom: 34px; }
 .timeline-item::before {
-  content: ""; position: absolute; left: -28px; top: 6px;
+  content: ""; position: absolute; left: -28px; top: 30px;
   width: 14px; height: 14px; border-radius: 50%;
   background: var(--accent); box-shadow: 0 0 0 4px var(--accent-soft);
 }
@@ -144,6 +144,36 @@ a { color: var(--accent); text-decoration: none; }
 .contact-card span { font-size: 1.6rem; }
 
 .footer { border-top: 1px solid var(--border); padding: 28px 0; text-align: center; color: var(--muted); font-size: 0.9rem; }
+
+/* CV-matched layout */
+.location { color: var(--muted); margin-top: 10px; }
+.summary p { color: var(--muted); margin-bottom: 14px; }
+.summary p:last-child { margin-bottom: 0; }
+.points { padding-left: 20px; color: var(--muted); }
+.points li { margin-bottom: 6px; }
+.points li::marker { color: var(--accent); }
+.job-head { display: flex; justify-content: space-between; align-items: flex-start; gap: 12px; flex-wrap: wrap; margin-bottom: 4px; }
+.job-head .company { margin-bottom: 12px; }
+.date { color: var(--accent); font-size: 0.9rem; white-space: nowrap; background: var(--accent-soft); padding: 3px 10px; border-radius: 6px; }
+.cert { display: flex; align-items: center; gap: 14px; }
+.cert h3 { margin-top: 0; }
+.cert-icon { font-size: 1.6rem; }
+.strength-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); gap: 20px; }
+.strength { display: flex; align-items: center; gap: 12px; font-weight: 500; }
+.strength span { font-size: 1.5rem; }
+
+.skip-link { position: absolute; left: -999px; top: 8px; background: var(--accent); color: #fff; padding: 8px 14px; border-radius: 8px; z-index: 20; }
+.skip-link:focus { left: 16px; }
+a:focus-visible, button:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; }
+.nav-links a.active { color: var(--accent); }
+
+.to-top {
+  position: fixed; right: 20px; bottom: 20px; width: 44px; height: 44px;
+  border-radius: 50%; border: none; background: var(--accent); color: #fff;
+  font-size: 1.2rem; cursor: pointer; box-shadow: var(--shadow);
+  opacity: 0; pointer-events: none; transition: opacity 0.3s;
+}
+.to-top.show { opacity: 1; pointer-events: auto; }
 
 /* Reveal animation */
 .reveal { opacity: 0; transform: translateY(24px); transition: opacity 0.6s ease, transform 0.6s ease; }
